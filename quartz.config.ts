@@ -15,7 +15,7 @@ const config: QuartzConfig = {
     analytics: {
       provider: "plausible",
     },
-    locale: "en-US",
+    locale: "zh-CN",
     baseUrl: "book.jupyter.pro",
     ignorePatterns: ["private", "templates", ".obsidian"],
     defaultDateType: "modified",
