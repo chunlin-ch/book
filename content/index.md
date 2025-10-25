@@ -6,8 +6,7 @@ title: 金融科技与人工智能知识图谱
 
 ## 关于本站
 
-这是一个专注于**金融科技（FinTech）**和**人工智能（AI）**学习过程中，阅读的书籍教材的知识图谱网站。本站致力于分享构建系统化、结构化的知识体系，帮助学习者深入理解金融科技与人工智能的理论基础、实践应用和前沿发展。
-
+这是一个专注于**金融科技（FinTech）**和**人工智能（AI）**学习的课程教材知识图谱网站。本站致力于构建系统化、结构化的知识体系，帮助学习者深入理解金融科技与人工智能的理论基础、实践应用和前沿发展。
 
 
 ## 网站宗旨
@@ -50,6 +49,28 @@ title: 金融科技与人工智能知识图谱
 - 🎯 **实用性**：结合实际案例和应用场景
 - 📊 **可视化**：通过图表和图谱直观展示知识结构
 
+## 版权声明
+
+本站内容采用 [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-nc-sa/4.0/) 进行许可。
+
+[![CC BY-NC-SA 4.0](https://licensebuttons.net/l/by-nc-sa/4.0/88x31.png)](https://creativecommons.org/licenses/by-nc-sa/4.0/)
+
+这意味着您可以：
+- ✅ **分享** — 在任何媒介以任何形式复制、发行本作品
+- ✅ **演绎** — 修改、转换或以本作品为基础进行创作
+
+惟须遵守下列条件：
+- 📝 **署名** — 您必须给出适当的署名，提供指向本许可协议的链接
+- 🚫 **非商业性使用** — 您不得将本作品用于商业目的
+- 🔄 **相同方式共享** — 如果您再混合、转换或者基于本作品进行创作，您必须基于与原先许可协议相同的许可协议分发您贡献的作品
+
 ---
 
 *让我们一起探索金融科技与人工智能的无限可能！*
+
+## 联系信息
+
+**CHUNLIN CHEN**  
+📧 [alone@swufe.edu.cn](mailto:alone@swufe.edu.cn)  
+🐙 [GitHub: alonegg](https://github.com/alonegg)  
+🏫 SWUFE
