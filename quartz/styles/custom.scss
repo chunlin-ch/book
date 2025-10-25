@@ -1,3 +1,77 @@
+/* 
+  字体加载策略：混合模式
+  1. 启用网络字体作为首选，提供最佳的视觉效果
+  2. 保留完整的系统字体回退栈，确保在网络不可用时仍有良好显示
+  3. 使用 font-display: swap 确保字体加载不会阻塞页面渲染
+*/
+
+/* 混合模式：启用网络字体，同时保持系统字体作为可靠回退 */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700&display=swap');
+
 @use "./base.scss";
 
 // put your custom CSS here!
+
+/* 1. 解决中文排版 "臃肿" 的核心问题：
+   将两端对齐改为左对齐，并增加行高，让中文阅读更舒适。
+*/
+.popover-hint > article {
+  // Quartz 的正文区域默认可能是两端对齐 (justify)
+  // 改为左对齐 (left) 是优化中文排版的关键第一步
+  text-align: left; 
+
+  // 增加行高，中文的推荐行高通常在 1.6 到 1.8 之间
+  line-height: 1.7; 
+}
+
+/* 2. 优化全局字体栈 (Font Stack)
+   通过修改 CSS 变量，让中文字体优先显示。
+   这个配置完全依赖系统字体，无需网络连接
+*/
+:root {
+  /*
+    混合模式字体栈：Noto Sans SC 作为首选网络字体
+    - 网络可用时：使用 Noto Sans SC 获得最佳视觉效果
+    - 网络不可用时：自动回退到系统字体
+    - macOS: PingFang SC (苹方)
+    - Windows: Microsoft YaHei (微软雅黑)
+    - Linux: WenQuanYi Micro Hei (文泉驿微米黑)
+  */
+  --sans: 
+    "Noto Sans SC", /* 网络字体，首选 */
+    "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", 
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", 
+    sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+
+  /*
+    衬线字体栈：优先使用系统自带的中文宋体/明体
+    - macOS: Songti SC (宋体-简)
+    - Windows: SimSun (宋体)
+    - 通用: STSong
+  */
+  --serif: 
+    "Songti SC", "STSong", "SimSun", "AR PL UKai CN", 
+    "Source Serif Pro", "Iowan Old Style", "Apple Garamond", "Palatino Linotype", "Times New Roman", 
+    serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    
+  /* 全局行高优化，提升中文阅读体验 */
+  --line-height: 1.7;
+}
+
+/* 3. 额外的中文排版优化 */
+body {
+  /* 确保全局使用优化后的行高 */
+  line-height: var(--line-height);
+  
+  /* 优化中文字符间距 */
+  letter-spacing: 0.02em;
+}
+
+/* 4. 标题的特殊处理 */
+h1, h2, h3, h4, h5, h6 {
+  /* 标题使用稍微紧凑的行高 */
+  line-height: 1.4;
+  
+  /* 标题字符间距 */
+  letter-spacing: 0.01em;
+}
