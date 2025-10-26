@@ -9,7 +9,7 @@ export const sharedPageComponents: SharedLayout = {
   footer: Component.Footer({
     links: {
       GitHub: "https://github.com/chunlin-ch/book",
-      CHUNLIN CHEN: "https://chunlin.ch",
+      CHUNLIN: "https://chunlin.ch",
       CC BY 4.0: "https://creativecommons.org/licenses/by/4.0/",
     },
   }),
