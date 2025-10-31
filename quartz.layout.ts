@@ -9,8 +9,6 @@ export const sharedPageComponents: SharedLayout = {
   footer: Component.Footer({
     links: {
       GitHub: "https://github.com/chunlin-ch/book",
-      CHUNLIN: "https://chunlin.ch",
-      "CC4.0": "https://creativecommons.org/licenses/by/4.0/",
     },
   }),
 }
