@@ -33,6 +33,12 @@ def fix_yaml_frontmatter(file_path):
         in_tags = False
         modified = False
         
+        def strip_quotes(s: str) -> str:
+            s = s.strip()
+            if (s.startswith('"') and s.endswith('"')) or (s.startswith("'") and s.endswith("'")):
+                return s[1:-1]
+            return s
+
         for line in lines:
             # 检查是否在tags数组中
             if line.strip().startswith('tags:'):
@@ -45,17 +51,22 @@ def fix_yaml_frontmatter(file_path):
                     match = re.match(r'^\s*-\s*([^:]+):\s*(.+)', line)
                     if match:
                         key = match.group(1).strip()
-                        value = match.group(2).strip()
+                        raw_value = match.group(2).strip()
+                        value = strip_quotes(raw_value)
                         
                         # 特殊处理前置知识字段
                         if key == '前置知识':
-                            # 解析逗号分隔的多个值
-                            if ',' in value:
-                                # 分割并清理每个值
-                                values = [v.strip() for v in value.split(',')]
-                                extracted_fields[key] = values
+                            # 处理 null 或空值为空列表
+                            if value.lower() in ('null', 'none', ''):
+                                extracted_fields[key] = []
                             else:
-                                extracted_fields[key] = [value]
+                                # 解析逗号分隔的多个值
+                                if ',' in raw_value:
+                                    # 分割并清理每个值（逐项去引号和空格）
+                                    values = [strip_quotes(v) for v in raw_value.split(',')]
+                                    extracted_fields[key] = values
+                                else:
+                                    extracted_fields[key] = [value]
                         else:
                             extracted_fields[key] = value
                         modified = True
@@ -81,9 +92,12 @@ def fix_yaml_frontmatter(file_path):
         # 添加提取的字段
         for key, value in extracted_fields.items():
             if key == '前置知识' and isinstance(value, list):
-                new_yaml_lines.append(f'{key}:')
-                for v in value:
-                    new_yaml_lines.append(f'  - {v}')
+                if len(value) == 0:
+                    new_yaml_lines.append(f'{key}: []')
+                else:
+                    new_yaml_lines.append(f'{key}:')
+                    for v in value:
+                        new_yaml_lines.append(f'  - {v}')
             else:
                 new_yaml_lines.append(f'{key}: {value}')
         
