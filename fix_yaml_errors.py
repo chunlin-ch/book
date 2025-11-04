@@ -37,23 +37,41 @@ def fix_yaml_frontmatter(file_path):
             if line.strip().startswith('tags:'):
                 in_tags = True
                 new_lines.append(line)
-            elif in_tags and line.startswith('  - '):
-                # 检查是否是双方括号链接
-                if re.match(r'^\s*-\s*"\[\[.*\]\]"', line):
-                    # 提取链接内容
-                    match = re.search(r'"\[\[(.*?)\]\]"', line)
+                continue
+
+            if in_tags and line.startswith('  - '):
+                # 检查是否是双方括号链接（允许带或不带引号）
+                if re.match(r'^\s*-\s*"?\[\[.*\]\]"?\s*$', line):
+                    # 提取链接内容（不重复包裹引号）
+                    match = re.search(r'\[\[(.*?)\]\]', line)
                     if match:
-                        prerequisite_links.append(f'"{match.group(0)}"')
+                        prerequisite_links.append(f'"[[{match.group(1)}]]"')
+                    # 不将该行保留在 tags 中
+                    continue
                 else:
                     new_lines.append(line)
-            elif in_tags and not line.startswith('  '):
+                    continue
+
+            if in_tags and not line.startswith('  '):
                 # 退出tags数组
                 in_tags = False
                 new_lines.append(line)
-            else:
+                continue
+
+            # 标准化顶层的前置知识行，避免出现双重引号
+            if re.match(r'^\s*前置知识:\s*"+\[\[.*\]\]"+\s*$', line):
+                line = re.sub(r'^(\s*前置知识:\s*)"+(\[\[.*\]\])"+\s*$', r'\1"\2"', line)
                 new_lines.append(line)
+                continue
+
+            # 规范日期字段：如果为 0 或 "0" 则替换为有效日期字符串
+            if re.match(r'^\s*date:\s*"?0"?\s*$', line):
+                new_lines.append('date: "1970-01-01"')
+                continue
+
+            new_lines.append(line)
         
-        # 如果找到了前置知识链接，添加前置知识字段
+        # 如果找到了前置知识链接，添加前置知识字段（顶层）
         if prerequisite_links:
             if len(prerequisite_links) == 1:
                 new_lines.append(f'前置知识: {prerequisite_links[0]}')

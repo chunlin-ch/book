@@ -5,8 +5,8 @@ tags:
   - 理论方法
   - 高级
 前置知识:
-  - ""[[37-理论方法-Shapley值]]""
-  - ""[[36-理论方法-局部代理(LIME)]]""
+  - "[[37-理论方法-Shapley值]]"
+  - "[[36-理论方法-局部代理(LIME)]]"
 ---
 
 # SHAP (SHapley Additive exPlanations)
